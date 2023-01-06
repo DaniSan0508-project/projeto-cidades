@@ -1,15 +1,14 @@
-import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter } from "react-router-dom";
-import { LigthTheme } from "./shared/themes";
 import { AppRoutes } from "./routes";
+import { AppThemeProvider } from "./shared/contexts/ThemeContext";
 
 
 export const App = () => {
   return (
-    <ThemeProvider theme={LigthTheme}>
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-    </ThemeProvider>
+    <AppThemeProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AppThemeProvider>
   );
 }
