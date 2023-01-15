@@ -1,8 +1,9 @@
+import { ThemeContext } from '@emotion/react';
 import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 interface IListItemLinkProps {
   label: string;
@@ -42,6 +43,8 @@ export const MenuLateral: React.FC<IAppRoutes> = ({children}) => {
 
   const {isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
+  const {toggleTheme, themeName} = useAppThemeContext();
+
   return(
     <>
       <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
@@ -61,6 +64,16 @@ export const MenuLateral: React.FC<IAppRoutes> = ({children}) => {
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
+            </List>
+          </Box>
+          <Box>
+            <List component={'nav'}>
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>{themeName === 'light' ? 'dark_mode' : 'light_mode'}</Icon>
+                </ListItemIcon>
+                <ListItemText primary={themeName === 'light' ? 'Tema Escuro' : 'Tema Claro'}/>
+              </ListItemButton>
             </List>
           </Box>
         </Box>
