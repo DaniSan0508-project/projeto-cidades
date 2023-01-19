@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, useTheme } from '@mui/material';
+import { Box, Button, Divider, Icon, Paper, Skeleton, useTheme } from '@mui/material';
 
 interface IFerramentasdeDetalheProps {
   textoBotaoNovo?:string;
@@ -7,6 +7,12 @@ interface IFerramentasdeDetalheProps {
   mostrarBotaoApagar?: boolean;
   mostrarBotaoSalvar?: boolean;
   mostrarBotaoSalvarEFechar?: boolean;
+
+  mostrarBotaoNovoCarregando?: boolean;
+  mostrarBotaoVoltarCarregando?: boolean;
+  mostrarBotaoApagarCarregando?: boolean;
+  mostrarBotaoSalvarCarregando?: boolean;
+  mostrarBotaoSalvarEFecharCarregando?: boolean;
 
   aoClicarEmNovo?: () => void;
   aoClicarEmVoltar?: () => void;
@@ -23,6 +29,12 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
   mostrarBotaoApagar = true,
   mostrarBotaoSalvar = true,
   mostrarBotaoSalvarEFechar = true,
+
+  mostrarBotaoNovoCarregando = false,
+  mostrarBotaoVoltarCarregando = false,
+  mostrarBotaoApagarCarregando = false,
+  mostrarBotaoSalvarCarregando = false,
+  mostrarBotaoSalvarEFecharCarregando = false,
 
   aoClicarEmNovo,
   aoClicarEmVoltar,
@@ -42,7 +54,7 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
       alignItems="center"
       component={Paper}
     >
-      {mostrarBotaoSalvar &&(<Button 
+      {(mostrarBotaoSalvar && !mostrarBotaoSalvarCarregando) &&(<Button 
         color='primary' 
         disableElevation 
         variant='contained'
@@ -51,7 +63,9 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
             Salvar
       </Button>
       )}
-      {mostrarBotaoSalvarEFechar &&( <Button 
+      {mostrarBotaoSalvarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
+
+      {(mostrarBotaoSalvarEFechar && !mostrarBotaoSalvarEFecharCarregando) &&( <Button 
         color='primary' 
         disableElevation 
         variant='outlined'
@@ -60,7 +74,9 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
             Salvar e voltar
       </Button>
       )}
-      {mostrarBotaoApagar &&(<Button 
+      {mostrarBotaoSalvarEFecharCarregando &&(<Skeleton animation='wave' width={180} height={60} />)}
+
+      {(mostrarBotaoApagar && !mostrarBotaoApagarCarregando) &&(<Button 
         color='primary' 
         disableElevation 
         variant='outlined'
@@ -69,7 +85,9 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
             Apagar
       </Button>
       )}
-      {mostrarBotaoNovo &&(<Button 
+      {mostrarBotaoApagarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
+
+      {(mostrarBotaoNovo && !mostrarBotaoNovoCarregando) &&(<Button 
         color='primary' 
         disableElevation 
         variant='outlined'
@@ -78,8 +96,10 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
         {textoBotaoNovo}
       </Button>
       )}
+      {mostrarBotaoNovoCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
+
       <Divider variant='middle' orientation='vertical' />
-      {mostrarBotaoVoltar &&(<Button 
+      {(mostrarBotaoVoltar && !mostrarBotaoVoltarCarregando) &&(<Button 
         color='primary' 
         disableElevation 
         variant='outlined'
@@ -88,6 +108,7 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
             Voltar
       </Button>
       )}
+      {mostrarBotaoVoltarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
     </Box>
   );
 };
