@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Icon, Paper, Skeleton, useTheme } from '@mui/material';
+import { Box, Button, Divider, Icon, Paper, Skeleton, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 interface IFerramentasdeDetalheProps {
   textoBotaoNovo?:string;
@@ -43,6 +43,8 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
   aoClicarEmSalvarEFechar,
 }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   return(
     <Box 
       height={theme.spacing(5)} 
@@ -60,21 +62,27 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
         variant='contained'
         onClick={aoClicarEmSalvar}
         startIcon={<Icon>save</Icon>}>
-            Salvar
+        <Typography variant='button' whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          { smDown ? '' : 'Salvar'}
+        </Typography>
+            
       </Button>
       )}
       {mostrarBotaoSalvarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
 
-      {(mostrarBotaoSalvarEFechar && !mostrarBotaoSalvarEFecharCarregando) &&( <Button 
+      {(mostrarBotaoSalvarEFechar && !mostrarBotaoSalvarEFecharCarregando && !smDown && !mdDown) &&( <Button 
         color='primary' 
         disableElevation 
         variant='outlined'
         onClick={aoClicarEmSalvarEFechar}
         startIcon={<Icon>save</Icon>}>
-            Salvar e voltar
+        <Typography variant='button' whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          Salvar e voltar
+        </Typography>
+           
       </Button>
       )}
-      {mostrarBotaoSalvarEFecharCarregando &&(<Skeleton animation='wave' width={180} height={60} />)}
+      {(mostrarBotaoSalvarEFecharCarregando && !smDown && !mdDown) && (<Skeleton animation='wave' width={180} height={60} />)}
 
       {(mostrarBotaoApagar && !mostrarBotaoApagarCarregando) &&(<Button 
         color='primary' 
@@ -82,30 +90,40 @@ export const FerramentasDeDetalhe:React.FC<IFerramentasdeDetalheProps> = ({
         variant='outlined'
         onClick={aoClicarEmApagar}
         startIcon={<Icon>delete</Icon>}>
-            Apagar
+        <Typography variant='button' whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          { smDown ? '' : 'Apagar'}
+        </Typography>
+            
       </Button>
       )}
       {mostrarBotaoApagarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
 
-      {(mostrarBotaoNovo && !mostrarBotaoNovoCarregando) &&(<Button 
+      {(mostrarBotaoNovo && !mostrarBotaoNovoCarregando && !smDown) &&(<Button 
         color='primary' 
         disableElevation 
         variant='outlined'
         onClick={aoClicarEmNovo}
         startIcon={<Icon>add</Icon>}>
-        {textoBotaoNovo}
+        <Typography variant='button' whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          {textoBotaoNovo}
+        </Typography>
+        
       </Button>
       )}
-      {mostrarBotaoNovoCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
+      {(mostrarBotaoNovoCarregando && !smDown) && (<Skeleton animation='wave' width={110} height={60} />)}
 
-      <Divider variant='middle' orientation='vertical' />
+      {(mostrarBotaoVoltar && (mostrarBotaoNovo || mostrarBotaoApagar || mostrarBotaoSalvar || mostrarBotaoSalvarEFechar)) && (<Divider variant='middle' orientation='vertical' />)}
+      
       {(mostrarBotaoVoltar && !mostrarBotaoVoltarCarregando) &&(<Button 
         color='primary' 
         disableElevation 
         variant='outlined'
         onClick={aoClicarEmVoltar}
         startIcon={<Icon>arrow_back</Icon>}>
-            Voltar
+        <Typography variant='button' whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          Voltar
+        </Typography>
+            
       </Button>
       )}
       {mostrarBotaoVoltarCarregando &&(<Skeleton animation='wave' width={110} height={60} />)}
