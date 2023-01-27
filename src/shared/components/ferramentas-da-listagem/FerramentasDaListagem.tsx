@@ -15,7 +15,7 @@ export const FerramentasDaListagem: React.FC<IFerramentasDaListagem> = ({
   textoDaBusca = '',
   mostrarInputBusca = false,
   aoMudarTextDeBusca,
-  mostrarBotaoNovo,
+  mostrarBotaoNovo = true,
   textoBotaoNovo = 'Novo',
   aoClicarEmNovo,
 }) => {
